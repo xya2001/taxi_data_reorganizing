@@ -76,3 +76,6 @@ def main(train_size, batch_size, max_epoch, learning_rate):
     # Process is complete.
     print('Training process has finished.')
     return X_train, X_test, y_train, y_test, data, mlp
+
+
+main(train_size = 50000, batch_size = 10, max_epoch = 5, learning_rate = 1e-4)
