@@ -24,6 +24,7 @@ def main(train_size, batch_size, max_epoch, learning_rate):
 
     # split data
     location_ids = ['PULocationID', 'DOLocationID']
+    # we want to find the relationship between fare amount and pick up, drop off locations.
     X_train, X_test, y_train, y_test = split_taxi_data(clean_df=clean_df, 
                                                     x_columns=location_ids, 
                                                     y_column="fare_amount", 
@@ -38,6 +39,7 @@ def main(train_size, batch_size, max_epoch, learning_rate):
     mlp = MLP(encoded_shape=dataset.X_enc_shape)
 
     # Define the loss function and optimizer
+    ## we want a loss function that is robust to the outliers
     loss_function = nn.L1Loss()
     optimizer = torch.optim.Adam(mlp.parameters(), lr=learning_rate)
 
@@ -75,6 +77,7 @@ def main(train_size, batch_size, max_epoch, learning_rate):
             current_loss = 0.0
     # Process is complete.
     print('Training process has finished.')
+    torch.save(mlp, "./models/trained_model.pth")
     return X_train, X_test, y_train, y_test, data, mlp
 
 
